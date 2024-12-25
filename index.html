@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff512f, #0078ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .logo-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 80%;
+            border-radius: 15px;
+            max-width: 300px; /* Limit max size of the logo */
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .form-section h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-section small {
+            display: block;
+            text-align: center;
+            color: gray;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-section input {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-section input:focus {
+            border-color: #0078ff;
+            box-shadow: 0 0 10px rgba(0, 120, 255, 0.2);
+        }
+
+        .form-section button {
+            background-color: #0078ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-section button:hover {
+            background-color: #005bb5;
+        }
+
+        .form-section .secondary-button {
+            background-color: #ff512f;
+            margin-top: 10px;
+        }
+
+        .form-section .secondary-button:hover {
+            background-color: #e04a1f;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .logo-section {
+                margin-bottom: 20px;
+            }
+
+            .form-section h1 {
+                font-size: 24px;
+            }
+
+            .form-section input {
+                font-size: 14px;
+            }
+
+            .form-section button {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo-section img {
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+      
+    <!-- filepath: /C:/Users/DELL/Desktop/myThirdApp/index.html -->
+<div class="logo-section">
+    <img src="assets/qualifourlogo1.jpg" alt="Logo">
+</div>
+
+        <div class="form-section">
+            <h1>Work Session</h1>
+            <small>version: 2.2.0</small>
+            <form id="dataForm">
+                <input type="text" id="companyInput" name="companyInput" placeholder="Nom de l'entreprise" required>
+                <input type="email" id="emailInput" name="emailInput" placeholder="E-mail" required>
+                <input type="password" id="dataInput" name="dataInput" placeholder="Mot de passe" required>
+                <button type="submit">IDENTIFIER</button>
+            </form>
+            <!--<button id="btnHello2" class="secondary-button">Go to Hello World 2</button>-->
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        document.getElementById('dataForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = document.getElementById('dataInput').value;
+            const company = document.getElementById('companyInput').value;
+            const email = document.getElementById('emailInput').value;
+            const jsonData = JSON.stringify({ data: data, company: company, email: email });
+            console.log('Form submitted with data:', jsonData);
+            ipcRenderer.send('open-myFirstApp', jsonData);
+        });
+
+        document.getElementById('btnHello2').addEventListener('click', () => {
+            console.log('Button 2 clicked');
+            ipcRenderer.send('open-mySecondApp');
+        });
+    </script>
+</body>
+</html>

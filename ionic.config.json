@@ -1,0 +1,7 @@
+{
+  "name": "myThirdApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular-standalone"
+}
